@@ -66,7 +66,7 @@ fn main() {
         loop {
             loop {
                 if let Ok(msg) = data_channel.recv_timeout(max_timeout) {
-                    if let Err(e) = cluster.bulk_query(&insert_stmt, Box::new(msg)) {
+                    if let Err(e) = cluster.bulk_query(insert_stmt, Box::new(msg)) {
                         panic!("Error inserting data: {:?}", e);
                     }
 
