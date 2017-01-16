@@ -79,8 +79,8 @@ fn main() {
         }
     });
 
-    let addr = matches.value_of("cratedb-address").unwrap_or("127.0.0.1:2003").to_string();
-    let batch_size = matches.value_of("cratedb-address").unwrap_or("1000").parse::<usize>().unwrap_or(1000);
+    let addr = matches.value_of("listen-address").unwrap_or("127.0.0.1:2003").to_string();
+    let batch_size = matches.value_of("batch-size").unwrap_or("1000").parse::<usize>().unwrap_or(1000);
 
     mioco::start(move || {
             let parsed_addr = addr.parse::<SocketAddr>().unwrap();
