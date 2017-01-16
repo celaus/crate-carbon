@@ -29,6 +29,19 @@ fn main() {
             .help("CrateDB Cluster address, can have multiple hosts.")
             .value_name("127.0.0.1:4200")
             .takes_value(true))
+        .arg(Arg::with_name("listen-address")
+            .short("l")
+            .long("listen")
+            .help("Local address to listen to.")
+            .value_name("127.0.0.1:2003")
+            .takes_value(true))
+        .arg(Arg::with_name("batch-size")
+            .short("b")
+            .long("batch-size")
+            .help("Batch size for CrateDB inserts.")
+            .value_name("1000")
+            .takes_value(true))
+
         .get_matches();
 
     log4rs::init_file("logging.yml", Default::default()).unwrap();
@@ -66,8 +79,8 @@ fn main() {
         }
     });
 
-    let addr = "127.0.0.1:2003";
-    let batch_size = 1000;
+    let addr = matches.value_of("cratedb-address").unwrap_or("127.0.0.1:2003").to_string();
+    let batch_size = matches.value_of("cratedb-address").unwrap_or("127.0.0.1:2003").to_();;
 
     mioco::start(move || {
             let parsed_addr = addr.parse::<SocketAddr>().unwrap();
@@ -77,7 +90,7 @@ fn main() {
             loop {
 
                 let conn = listener.accept().unwrap();
-                let s = tx.clone();
+                let q = tx.clone();
                 mioco::spawn(move || -> io::Result<()> {
 
                     let mut reader = BufReader::new(conn);
@@ -100,7 +113,7 @@ fn main() {
 
                         }
                         if send_buffer.len() > 0 {
-                            let _ = s.send(send_buffer);
+                            let _ = q.send(send_buffer);
                         } else {
                             break;
                         }
