@@ -1,6 +1,6 @@
 # A CrateDB Carbon Adapter
 
-[![Build Status](https://travis-ci.org/celaus/crate-carbon.svg?branch=master)](https://travis-ci.org/celaus/crate-carbom)
+[![Build Status](https://travis-ci.org/celaus/crate-carbon.svg?branch=master)](https://travis-ci.org/celaus/crate-carbon)
 
 Translates Carbon plaintext format into CrateDB bulk inserts.
 
