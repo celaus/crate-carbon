@@ -60,8 +60,8 @@ fn main() {
         }
         let max_timeout = Duration::from_secs(90);
 
-        let insert_stmt: String = "insert into carbon.metrics(agent, value, ts) values(?,?,?)"
-            .to_string();
+        let insert_stmt =  "insert into carbon.metrics(agent, value, ts) values(?,?,?)";
+
         info!("Using statement '{}' to insert data.", insert_stmt);
         loop {
             loop {
@@ -80,7 +80,7 @@ fn main() {
     });
 
     let addr = matches.value_of("cratedb-address").unwrap_or("127.0.0.1:2003").to_string();
-    let batch_size = matches.value_of("cratedb-address").unwrap_or("127.0.0.1:2003").to_();;
+    let batch_size = matches.value_of("cratedb-address").unwrap_or("1000").parse::<usize>().unwrap_or(1000);
 
     mioco::start(move || {
             let parsed_addr = addr.parse::<SocketAddr>().unwrap();
